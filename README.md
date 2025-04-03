@@ -29,13 +29,30 @@ To run the project locally, follow these steps:
     npm install
     ```
 
-4.  Initialize Playwright:
+4.  Install the `dotenv` package:
+
+    ```bash
+    npm install dotenv
+    ```
+
+5.  Initialize Playwright:
 
     ```bash
     npm init playwright@latest
     ```
 
-    * During Playwright initialization, you will be prompted to select a language, chose TypeScript.
+    * During Playwright initialization, you will be prompted to select a language, chose TypeScript, add a GitHub Actions workflow, and install browsers.
+
+## Using `dotenv`
+
+1.  Create a `.env` file in the root directory of the project.
+2.  Add environment variables to the `.env` file in the format `KEY=VALUE`. 
+3.  In your JavaScript or TypeScript code, import and configure `dotenv`. For example:
+
+    const baseUrl = process.env.BASE_URL;
+
+    console.log(baseUrl);
+    ```
 
 ## Running Tests
 
@@ -43,7 +60,7 @@ To run Playwright tests, execute the following command:
 
 ```bash
 npx playwright test
- ```
+```
 
 View the test report:
 

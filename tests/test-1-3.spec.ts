@@ -1,17 +1,17 @@
 import { test, expect } from '@playwright/test';
 
 test('Verify login with valid credentials', async ({ page }) => {
-  await page.goto('/auth/login');
-  await page.locator('[data-test="email"]').fill('customer@practicesoftwaretesting.com');
-  await page.locator('[data-test="password"]').fill('welcome01');
+  await page.goto(process.env.WEB_URL + '/auth/login');
+  await page.getByRole('textbox', { name: 'Email address *' }).fill(process.env.USER_EMAIL);
+  await page.getByRole('textbox', {name: 'Password *'}).fill(process.env.USER_PASSWORD!);
   await page.locator('[data-test="login-submit"]').click();
-  await expect(page).toHaveURL('/account');
+  await expect(page).toHaveURL((process.env.WEB_URL + '/account'));
   await expect(page.locator('[data-test="page-title"]')).toContainText(['My account']);
-  await expect(page.getByText('Jane Doe')).toBeVisible();
+  await expect(page.getByText(process.env.USER_NAME)).toBeVisible();
 });
 
 test('Verify user can view product details', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(process.env.WEB_URL);
   await page.getByRole('heading', {name: 'Combination Pliers'}).click();
 
   await expect(page.url()).toContain('/product');
@@ -24,7 +24,7 @@ test('Verify user can view product details', async ({ page }) => {
 });
 
 test('Verify user can add product to cart', async ({ page }) => {
-  await page.goto('https://practicesoftwaretesting.com/');
+  await page.goto(process.env.WEB_URL);
   await page.getByRole('heading', {name: 'Slip Joint Pliers'}).click();
   await expect(page.url()).toContain('/product');
   await expect(page.locator('[data-test="product-name"]')).toContainText('Slip Joint Pliers');
