@@ -1,14 +1,13 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from '../pages/home.page';
+import { ProductPage } from '../pages/product.page';
 
 test('Verify user can view product details', async ({ page }) => {
-  await page.goto(process.env.WEB_URL);
-  await page.getByRole('heading', {name: 'Combination Pliers'}).click();
+  const homePage = new HomePage(page);
+  const productPage = new ProductPage(page);
 
-  await expect(page.url()).toContain('/product');
-  await expect(page.locator('[data-test="product-name"]')).toContainText('Combination Pliers');
-  await expect (page.locator('[data-test="unit-price"]')).toContainText('14.15');
-  const addToCartButtonLocator = page.locator('button[data-test="add-to-cart"]');
-  await expect(addToCartButtonLocator).toBeVisible();
-  const addToFavouritessButtonLocator = page.locator('button[data-test="add-to-favorites"]');
-  await expect(addToFavouritessButtonLocator).toBeVisible();
+  await homePage.navigate();
+  await homePage.navigateToProduct('Combination Pliers');
+  await productPage.verifyProductDetails('14.15');
 });
+
