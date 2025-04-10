@@ -12,4 +12,10 @@ export class ProductsFiltersFragment {
   async selectSortOption(optionText: string): Promise<void> {
     await this.sortDropdown.selectOption({ label: optionText });
   }
+  
+  async filterByCategory(label: string): Promise<void> 
+  {
+    const checkbox = this.page.locator('label').filter({ hasText: label });
+    await checkbox.click();
+  }
 }
