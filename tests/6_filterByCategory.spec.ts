@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
-import { ProductsFiltersFragment } from '../pages/fragments/ProductFiltersFragment';
+import { ProductsFiltersFragment } from '../fragments/ProductFiltersFragment';
+
 
 enum ProductCategory {
   HandTools = 'Hand Tools',

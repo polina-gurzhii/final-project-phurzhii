@@ -1,6 +1,6 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
-export class HeaderF {
+export class HeaderFragment {
   readonly page: Page;
   readonly cartLink: Locator;
 
@@ -11,5 +11,9 @@ export class HeaderF {
 
   async navigateToCart(): Promise<void> {
     await this.cartLink.click();
+  }
+
+  async expectCartVisible(): Promise<void> {
+    await expect(this.cartLink).toBeVisible();
   }
 }

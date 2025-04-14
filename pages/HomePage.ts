@@ -1,15 +1,15 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { HeaderF } from './fragments/HeaderFragment';
-import { ProductsFiltersFragment } from './fragments/ProductFiltersFragment';
+import { HeaderFragment } from '../fragments/HeaderFragment';
+import { ProductsFiltersFragment } from '../fragments/ProductFiltersFragment';
 
 export class HomePage {
    page: Page;
-   header: HeaderF;
+   header: HeaderFragment;
    filters: ProductsFiltersFragment;
 
   constructor(page: Page) {
     this.page = page;
-    this.header = new HeaderF(page);
+    this.header = new HeaderFragment(page);
     this.filters = new ProductsFiltersFragment(page);
   }
 
