@@ -14,7 +14,7 @@ test('Verify user can add product to cart', async ({ page }) => {
   await productPage.verifyProductDetails('9.17');
   await productPage.addToCart();
   await productPage.verifyCartAlert();
-  await header.expectCartVisible();
+  await homePage.header.expectCartVisible();
   await productPage.verifyCartQuantity('1');
   await productPage.header.navigateToCart();
   await productPage.verifyCheckoutPage();

@@ -6,11 +6,13 @@ export class HomePage {
    page: Page;
    header: HeaderFragment;
    filters: ProductsFiltersFragment;
+   productName: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.header = new HeaderFragment(page);
     this.filters = new ProductsFiltersFragment(page);
+    this.productName = page.locator('[data-test="product-name"]');
   }
 
   async navigate(): Promise<void> {
@@ -19,5 +21,9 @@ export class HomePage {
 
   async navigateToProduct(productName: string): Promise<void> {
     await this.page.getByRole('heading', { name: productName }).click();
+  }
+
+  async getAllProductNames(): Promise<string[]> {
+    return this.productName.allTextContents();
   }
 }

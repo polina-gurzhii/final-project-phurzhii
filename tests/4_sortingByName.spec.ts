@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
-import { ProductsFiltersFragment } from '../fragments/ProductFiltersFragment';
+import { ProductsFiltersFragment, SortOption } from '../fragments/ProductFiltersFragment';
+import { ProductPage } from '../pages/ProductPage';
 
 
 
@@ -11,11 +12,11 @@ test.beforeEach(async ({ page }) => {
 
   test('Sort by name ascending', async ({ page }) => {
     const filters = new ProductsFiltersFragment(page);
+    const productsList = new ProductPage(page);
   
     await filters.selectSortOption('Name (A - Z)');
-    await page.waitForTimeout(1000);
-  
-    const productNames = await page.locator('[data-test="product-name"]').allTextContents();
+
+  const productNames = await productsList.getAllProductNames();
   
     const isSorted = productNames.every((name, index) => {
       if (index === 0) return true;
@@ -29,11 +30,11 @@ test.beforeEach(async ({ page }) => {
 
   test('Sort by name descending', async ({ page }) => {
     const filters = new ProductsFiltersFragment(page);
+    const productsList = new ProductPage(page);
   
     await filters.selectSortOption('Name (Z - A)');
-    await page.waitForTimeout(1000);
-  
-    const productNames = await page.locator('[data-test="product-name"]').allTextContents();
+    
+    const productNames = await productsList.getAllProductNames();
   
     const isSorted = productNames.every((name, index) => {
       if (index === 0) return true;

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
-import { ProductsFiltersFragment } from '../fragments/ProductFiltersFragment';
+import { ProductsFiltersFragment, SortOption } from '../fragments/ProductFiltersFragment';
 
 
 test.beforeEach(async ({ page }) => {
@@ -10,13 +10,11 @@ test.beforeEach(async ({ page }) => {
 
 
 test('Sort by price ascending', async ({ page }) => {
-    const filters = new ProductsFiltersFragment(page);
+    const homePage = new HomePage(page);
+  await homePage.filters.selectSortOption('Price (Low - High)');
 
-    await filters.selectSortOption('Price (Low - High)');
-    await page.waitForTimeout(1000);
+  const productPrices = await homePage.filters.getProductPrices();
 
-
-const productPrices = await page.locator('[data-test="product-price"]').allTextContents();
     const isSorted = productPrices.every((price, index, array) => {
         if (index === 0) return true;
     
@@ -30,13 +28,11 @@ const productPrices = await page.locator('[data-test="product-price"]').allTextC
     });
 
     test('Sort by price descending', async ({ page }) => {
-        const filters = new ProductsFiltersFragment(page);
-    
-        await filters.selectSortOption('Price (High - Low)');
-        await page.waitForTimeout(1000);
-    
-    
-    const productPrices = await page.locator('[data-test="product-price"]').allTextContents();
+        const homePage = new HomePage(page); 
+  await homePage.filters.selectSortOption('Price (High - Low)');
+
+  const productPrices = await homePage.filters.getProductPrices();
+
         const isSorted = productPrices.every((price, index, array) => {
             if (index === 0) return true;
         

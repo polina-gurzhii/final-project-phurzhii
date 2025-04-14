@@ -55,4 +55,12 @@ export class ProductPage {
     await expect(this.productTitle).toHaveText('Slip Joint Pliers');
     await expect(this.proceedButton).toBeVisible();
   }
+
+  async getAllProductNames(): Promise<string[]> {
+    return this.productName.allTextContents();
+  }
+
+  async waitForProductNames(): Promise<void> {
+    await this.productName.waitFor();
+  }
 }

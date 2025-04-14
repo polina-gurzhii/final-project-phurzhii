@@ -7,7 +7,7 @@ test('Verify login with valid credentials', async ({ page }) => {
   await loginPage.login('customer@practicesoftwaretesting.com', 'welcome01');
 
   await expect(page).toHaveURL((process.env.WEB_URL + '/account'));
-  await expect(page.locator('[data-test="page-title"]')).toContainText(['My account']);
+  await loginPage.verifyPageTitle('My account');
   await expect(page.getByText(process.env.USER_NAME)).toBeVisible();
 });
 
