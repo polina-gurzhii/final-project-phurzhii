@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
 import { ProductPage } from '../pages/ProductPage';
-import { HeaderF } from '../fragments/HeaderFragment';
+import { HeaderFragment } from '../fragments/HeaderFragment';
+
 
 test('Verify user can add product to cart', async ({ page }) => {
   const homePage = new HomePage(page);
   const productPage = new ProductPage(page);
-  const header = new HeaderF(page);
+  const header = new HeaderFragment(page);
 
   await homePage.navigate();
   await homePage.navigateToProduct('Slip Joint Pliers');
