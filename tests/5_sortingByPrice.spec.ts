@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { HomePage } from '../pages/home.page';
-import { ProductsFiltersFragment } from '../pages/products.filters.fragment';
+import { HomePage } from '../pages/HomePage';
+import { ProductsFiltersFragment } from '../pages/fragments/ProductFiltersFragment';
 
 test.beforeEach(async ({ page }) => {
   const homePage = new HomePage(page);

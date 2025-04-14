@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { HeaderF } from './header.fragment';
+import { HeaderF } from './fragments/HeaderFragment';
 
 
 export class ProductPage {
