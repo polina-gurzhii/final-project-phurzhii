@@ -9,12 +9,14 @@ enum ProductCategory {
   Other = 'Other',
 }
 test('Verify user can filter products by category', async ({ page }) => {
-    const homePage = new HomePage(page);
-    await homePage.navigate();
-  
-    await homePage.filters.filterByCategory(ProductCategory.PowerTools);
-  
-    const productNames = await homePage.getAllProductNames();
- 
-    expect(productNames.some(name => name.toLowerCase().includes('sander'))).toBe(true);
-  });
+  const homePage = new HomePage(page);
+  await homePage.navigate();
+  await page.waitForTimeout(3000);
+
+
+  await homePage.filters.filterByCategory (ProductCategory.PowerTools);
+
+  const productNames = await homePage.getAllProductNames();
+
+  expect(productNames.some(name => name.toLowerCase().includes('sander'))).toBe(true);
+});
