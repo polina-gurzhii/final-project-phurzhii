@@ -14,9 +14,6 @@ test('Verify user can filter products by category', async ({ page }) => {
   
     await homePage.filters.filterByCategory(ProductCategory.PowerTools);
   
-    await page.waitForSelector('[data-test="product-name"]');
-    await page.waitForTimeout(1000);
-  
     const productNames = await homePage.getAllProductNames();
  
     expect(productNames.some(name => name.toLowerCase().includes('sander'))).toBe(true);

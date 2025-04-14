@@ -28,8 +28,15 @@ export class ProductsFiltersFragment {
   
   async filterByCategory(label: string): Promise<void> 
   {
-    const checkbox = this.page.locator('label').filter({ hasText: label });
-    await checkbox.click();
+    //const checkbox = this.page.locator('label').filter({ hasText: label });
+    //await checkbox.click();
+    const responsePromise = this.page.waitForResponse((response) =>
+      response.url().includes('/products?between=price')
+      && response.status() === 200
+      && response.request().method() === 'GET',
+    );
+    await this.page.getByRole('checkbox', { name: label }).check();
+    await responsePromise;
   }
 
   async getProductPrices(): Promise<string[]> {
