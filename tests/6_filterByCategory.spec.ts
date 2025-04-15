@@ -11,12 +11,11 @@ enum ProductCategory {
 test('Verify user can filter products by category', async ({ page }) => {
   const homePage = new HomePage(page);
   await homePage.navigate();
-  await page.waitForTimeout(3000);
-
-
   await homePage.filters.filterByCategory (ProductCategory.PowerTools);
 
   const productNames = await homePage.getAllProductNames();
-
-  expect(productNames.some(name => name.toLowerCase().includes('sander'))).toBe(true);
+  
+  expect(productNames.some(name => name.toLowerCase().includes('sander')),
+    `Search result: ${productNames}`
+  ).toBe(true);
 });
