@@ -29,7 +29,7 @@ export class ProductsFiltersFragment {
   async filterByCategory(label: string): Promise<void> 
   {
     const responsePromise = this.page.waitForResponse((response) =>
-      response.url().includes('/products?between=price,1,100&page=1')
+      response.url().includes('/products?between=price,1,100&by_category=')
       && response.status() === 200
       && response.request().method() === 'GET',
     );
