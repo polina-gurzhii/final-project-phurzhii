@@ -37,12 +37,12 @@ export class ProductsFiltersFragment {
     await responsePromise;
   }
 
-  async navigate(): Promise<void> {
-    await Promise.all([
-      this.page.goto(process.env.WEB_URL),
-      this.page.waitForResponse(response => response.url().includes(process.env.WEB_URL) && response.status() === 200),
-    ]);
-  }
+  //async navigate(): Promise<void> {
+   // await Promise.all([
+     // this.page.goto(process.env.WEB_URL),
+     // this.page.waitForResponse(response => response.url().includes(process.env.WEB_URL) && response.status() === 200),
+    //]);
+  //}
 
   async getProductPrices(): Promise<string[]> {
     return this.productPrices.allTextContents();
