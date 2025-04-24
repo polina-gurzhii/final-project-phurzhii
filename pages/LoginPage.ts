@@ -18,8 +18,8 @@ export class LoginPage {
         this.header = new HeaderFragment (page);
         this.pageTitle = page.locator('[data-test="page-title"]');
     }
-async login(emailLocator: string, password: string): Promise<void> {
-    await this.emailLocator.fill(process.env.USER_EMAIL);
+async login(/*emailLocator: string, password: string*/): Promise<void> {
+    await this.emailLocator.fill(process.env.USER_EMAIL!);
     await this.password.fill(process.env.USER_PASSWORD!);
     await this.submitButton.click();
 }

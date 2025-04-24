@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
-import { ProductsFiltersFragment } from '../fragments/ProductFiltersFragment';
 
 
 enum ProductCategory {
@@ -16,6 +15,6 @@ test('Verify user can filter products by category', async ({ page }) => {
   const productNames = await homePage.getAllProductNames();
   
   expect(productNames.some(name => name.toLowerCase().includes('sander')),
-    `Search result: ${productNames}`
+    //`Search result: ${productNames}`
   ).toBe(true);
 });
