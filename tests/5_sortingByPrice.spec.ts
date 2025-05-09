@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
-import { ProductsFiltersFragment, SortOption } from '../fragments/ProductFiltersFragment';
+
 
 
 test.beforeEach(async ({ page }) => {
