@@ -1,4 +1,3 @@
-// fixtures.ts
 import { test as base } from '@playwright/test';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
@@ -8,6 +7,7 @@ type MyFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   productPage: ProductPage;
+  loggedInPage: HomePage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -22,6 +22,13 @@ export const test = base.extend<MyFixtures>({
   productPage: async ({ page }, use) => {
     const productPage = new ProductPage(page);
     await use(productPage);
+  },
+  loggedInPage: async ({ page }, use) => {
+    const loginPage = new LoginPage(page);
+    await page.goto(process.env.WEB_URL + '/auth/login');
+    await loginPage.login();
+    const homePage = new HomePage(page);
+    await use(homePage);
   },
 });
 
