@@ -2,12 +2,16 @@ import { test as base } from '@playwright/test';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { ProductPage } from './pages/ProductPage';
+import { CartPage } from './pages/CartPage';
+import { CheckoutPage } from './pages/CheckoutPage';
 
 type MyFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   productPage: ProductPage;
   loggedInPage: HomePage;
+  cartPage: CartPage;
+  checkoutPage: CheckoutPage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -28,7 +32,16 @@ export const test = base.extend<MyFixtures>({
     await page.goto(process.env.WEB_URL + '/auth/login');
     await loginPage.login();
     const homePage = new HomePage(page);
+    await homePage.navigate();
     await use(homePage);
+  },
+  cartPage: async ({ page }, use) => {
+    const cartPage = new CartPage(page);
+    await use(cartPage);
+  },
+  checkoutPage: async ({ page }, use) => {
+    const checkoutPage = new CheckoutPage(page);
+    await use(checkoutPage);
   },
 });
 

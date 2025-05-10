@@ -26,4 +26,5 @@ export class HomePage {
   async getAllProductNames(): Promise<string[]> {
     return this.productName.allTextContents();
   }
+
 }
