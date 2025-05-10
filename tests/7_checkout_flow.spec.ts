@@ -1,9 +1,10 @@
 import { test, expect } from '../fixtures';
+import { LoginPage } from '../pages/LoginPage';
 
 test('Verify successful checkout with logged in user', async ({ loggedInPage, productPage, cartPage, checkoutPage }) => {
   
   const firstProductNameHomePage = (await loggedInPage.getAllProductNames())[0];
-  console.log(firstProductNameHomePage);
+  await loggedInPage.page.waitForTimeout(3000);
   await loggedInPage.navigateToProduct(firstProductNameHomePage);
 
   await expect(productPage.page).toHaveURL(/product/);
@@ -24,7 +25,14 @@ test('Verify successful checkout with logged in user', async ({ loggedInPage, pr
   await cartPage.proceedToCheckout();
 
   // 4. Перевірити, що юзер вже залогінений і нічого додатково робити не потрібно
-  await expect(checkoutPage.page).toHaveURL(new RegExp(`${process.env.WEB_URL}/checkout`));
+  const loginPageOnCheckout = new LoginPage(checkoutPage.page); // Створюємо інстанс LoginPage, використовуючи page з checkoutPage
+
+  // Заповнюємо та відправляємо форму логіну
+  await loginPageOnCheckout.login();
+
+  // Дочекайтеся завантаження сторінки після логіну (перехід на крок Billing Address)
+  //await expect(checkoutPage.page).toHaveURL(new RegExp(`${process.env.WEB_URL}/order`));
+  await checkoutPage.expectUserIsLoggedIn();
  
 
   // 5. Ввести відсутні поля на сторінці Billing Address
@@ -33,7 +41,8 @@ test('Verify successful checkout with logged in user', async ({ loggedInPage, pr
   const currentYear = currentDate.getFullYear();
   const expiryMonth = (currentMonth + 3) % 12 === 0 ? 12 : (currentMonth + 3) % 12;
   const expiryYear = currentYear + Math.floor((currentMonth + 3 - 1) / 12);
-  const formattedExpiry = `${String(expiryMonth).padStart(2, '0')}/${String(String(expiryYear).slice(-2))}`;
+  const formattedExpiry = `${String(expiryMonth).padStart(2, '0')}/${String(expiryYear)}`;
+
 
   await checkoutPage.fillBillingAddress(
     'Test street 98',

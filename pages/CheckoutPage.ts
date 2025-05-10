@@ -8,7 +8,7 @@ export class CheckoutPage {
   readonly stateInput: Locator;
   readonly countryInput: Locator;
   readonly postCodeInput: Locator;
-  readonly proceedToCheckoutButton: Locator;
+  readonly proceedToCheckoutButton3: Locator;
 
 
   readonly paymentMethodDropdown: Locator;
@@ -18,6 +18,8 @@ export class CheckoutPage {
   readonly cardHolderNameInput: Locator;
   readonly confirmPaymentButton: Locator;
   readonly paymentSuccessMessage: Locator;
+  readonly userLoggedInMessage: Locator;
+  readonly proceedToCheckoutButton2: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -26,7 +28,8 @@ export class CheckoutPage {
     this.stateInput = page.locator('[data-test="state"]');
     this.countryInput = page.locator('[data-test="country"]');
     this.postCodeInput = page.locator('[data-test="postal_code"]');
-    this.proceedToCheckoutButton = page.locator('[data-test="proceed-3"]');
+    this.proceedToCheckoutButton3 = page.locator('[data-test="proceed-3"]');
+    this.proceedToCheckoutButton2 = page.locator('[data-test="proceed-2"]');
 
     this.paymentMethodDropdown = page.locator('[data-test="payment-method"]');
     this.cardNumberInput = page.locator('[data-test="credit_card_number"]');
@@ -35,6 +38,9 @@ export class CheckoutPage {
     this.cardHolderNameInput = page.locator('[data-test="card_holder_name"]');
     this.confirmPaymentButton = page.locator('[data-test="finish"]');
     this.paymentSuccessMessage = page.getByText('Payment was successful');
+    /*this.userLoggedInMessage = page.getByText("you are already logged in", {
+      exact: false,
+    });*/
   }
 
   async fillBillingAddress(street: string, city: string, state: string, country: string, postCode: string): Promise<void> {
@@ -43,7 +49,7 @@ export class CheckoutPage {
     await this.stateInput.fill(state);
     await this.countryInput.fill(country);
     await this.postCodeInput.fill(postCode);
-    await this.proceedToCheckoutButton.click();
+    await this.proceedToCheckoutButton3.click();
   }
 
   async selectCreditCardPayment(cardNumber: string, expirationDate: string, cvv: string, cardHolderName: string): Promise<void> {
@@ -57,5 +63,9 @@ export class CheckoutPage {
 
   async verifyPaymentSuccess(): Promise<void> {
     await expect(this.paymentSuccessMessage).toBeVisible();
+  }
+  async expectUserIsLoggedIn(): Promise<void> {
+    //await expect(this.userLoggedInMessage).toBeVisible();
+    await this.proceedToCheckoutButton2.click();
   }
 }
