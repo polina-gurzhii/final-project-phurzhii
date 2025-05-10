@@ -26,7 +26,7 @@ export class HomePage {
   }*/
 
     async navigateToProduct(productName: string): Promise<void> {
-      await this.page.locator('.card-body').locator('[data-test="product-name"]', { hasText: productName }).click(); // Замініть data-test="product-name" на фактичний атрибут
+      await this.page.locator('.card-body').locator('[data-test="product-name"]', { hasText: productName }).click();
     }
 
   async getAllProductNames(): Promise<string[]> {
