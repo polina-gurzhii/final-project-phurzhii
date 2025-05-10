@@ -4,8 +4,7 @@ import { LoginPage } from '../pages/LoginPage';
 test('Verify successful checkout with logged in user', async ({ loggedInPage, productPage, cartPage, checkoutPage }) => {
   
   const firstProductNameHomePage = (await loggedInPage.getAllProductNames())[0];
-  await loggedInPage.page.waitForTimeout(3000);
-  await loggedInPage.navigateToProduct(firstProductNameHomePage);
+  await loggedInPage.navigateToProduct(' Combination Pliers ');
 
   await expect(productPage.page).toHaveURL(/product/);
 
@@ -24,18 +23,12 @@ test('Verify successful checkout with logged in user', async ({ loggedInPage, pr
 
   await cartPage.proceedToCheckout();
 
-  // 4. Перевірити, що юзер вже залогінений і нічого додатково робити не потрібно
-  const loginPageOnCheckout = new LoginPage(checkoutPage.page); // Створюємо інстанс LoginPage, використовуючи page з checkoutPage
+  const loginPageOnCheckout = new LoginPage(checkoutPage.page); 
 
-  // Заповнюємо та відправляємо форму логіну
   await loginPageOnCheckout.login();
 
-  // Дочекайтеся завантаження сторінки після логіну (перехід на крок Billing Address)
-  //await expect(checkoutPage.page).toHaveURL(new RegExp(`${process.env.WEB_URL}/order`));
   await checkoutPage.expectUserIsLoggedIn();
  
-
-  // 5. Ввести відсутні поля на сторінці Billing Address
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1;
   const currentYear = currentDate.getFullYear();
@@ -51,8 +44,7 @@ test('Verify successful checkout with logged in user', async ({ loggedInPage, pr
     'Austria',
     '1010',      
   );
-
-  // 6. На наступній сторінці вибрати: Credit Card -> Card number: 1111-1111-1111-1111 -> Expiration Date: +3 місяці до дати запуску тесту -> CVV: 111 -> Card Holder Name: any name -> Confirm
+  
   await checkoutPage.selectCreditCardPayment(
     '1111-1111-1111-1111',
     formattedExpiry,
@@ -60,6 +52,5 @@ test('Verify successful checkout with logged in user', async ({ loggedInPage, pr
     'Any Name',
   );
 
-  // 7. Перевірити, що платіж був успішним.
   await checkoutPage.verifyPaymentSuccess();
 });
