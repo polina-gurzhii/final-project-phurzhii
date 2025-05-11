@@ -10,11 +10,11 @@ export class CartPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.productName = page.locator('[data-test="product-title"]');
-    this.unitPrice = page.locator('[data-test="product-price"]');
-    this.quantity = page.locator('[data-test="product-quantity"]');
-    this.totalPrice = page.locator('[data-test="line-price"]');
-    this.proceedToCheckoutButton = page.locator('[data-test="proceed-1"]');
+    this.productName = page.getByTestId('product-title');
+    this.unitPrice = page.getByTestId('product-price');
+    this.quantity = page.getByTestId('product-quantity');
+    this.totalPrice = page.getByTestId('line-price');
+    this.proceedToCheckoutButton = page.getByTestId('proceed-1');
   }
 
   async verifyProductDetails(name: string, price: string): Promise<void> {

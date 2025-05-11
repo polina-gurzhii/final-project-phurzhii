@@ -29,7 +29,7 @@ export const test = base.extend<MyFixtures>({
   },
   loggedInPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
-    await page.goto(process.env.WEB_URL + '/auth/login');
+    await page.goto('/auth/login');
     await loginPage.login();
     const homePage = new HomePage(page);
     await homePage.navigate();
