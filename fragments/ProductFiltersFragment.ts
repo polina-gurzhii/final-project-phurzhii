@@ -12,10 +12,6 @@ export class ProductsFiltersFragment {
     this.productPrices = page.locator('[data-test="product-price"]');
   }
 
-  //async selectSortOption(optionText: string): Promise<void> {
-    //await this.sortDropdown.selectOption({ label: optionText });
-  //}
-
   async selectSortOption(option: SortOption): Promise<void> {
     const responsePromise = this.page.waitForResponse((response) =>
       response.url().includes('/products?sort=')
